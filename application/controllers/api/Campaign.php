@@ -61,10 +61,26 @@ class Campaign extends Api_Controller {
         $this->display();
     }
     function get_news(){
-        $data = $this->API_Model->get_by_today();
-        $this->_output['data']['news_items'] = $this->_fixdata($data);
-        $data = $this->API_Model->get_by_like();
-        $this->_output['data']['like_items'] = $this->_fixdata($data);
+        if($this->$this->member){
+            $data = $this->API_Model->get_by_today();
+            $this->_output['data']['NewData'] = $this->_fixdata($data);
+            $data = $this->API_Model->get_by_like();
+            $this->_output['data']['LikeData'] = $this->_fixdata($data);
+        }
+        $data = $this->API_Model->get_actived($this->_page,$this->_perpage);
+        if($data){
+            $query = $this->db->query('SELECT FOUND_ROWS() AS `total_rows`;');
+            $tmp = $query->row_array();
+            $total_rows = (int)$tmp['total_rows'];
+            
+            $data = $this->_fixdata($data);
+            $this->_output['data']['ArrData'] = $data;
+            $this->_output['data']['hit'] = $total_rows;
+            if($this->_page){
+                $this->_output['data']['page'] = $this->_page;
+                $this->_output['data']['perpage'] = $this->_perpage;
+            }
+        }
 
         $this->_output['code'] = 1;
         $this->_output['text'] = 'ok';

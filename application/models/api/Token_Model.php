@@ -15,50 +15,50 @@ class Token_Model extends CI_Model {
         parent::__construct();
     }
     
-    function create($app_id='',$time = 7200){
+    function create($uuid='',$member_id,$time = 60*60*24*365){
         $this->delete_expried_token();
         $token = random_string('alnum', 32);
-        $this->db->set('token_app_id', $app_id);
-        $this->db->set('token_id', $token);
-        $this->db->set('token_created', 'NOW()', FALSE);
-        $this->db->set('token_expried', "NOW() + INTERVAL {$time} SECOND", FALSE);
-        @$this->db->insert('auth_token');
+        $this->db->set('uuid', $uuid);
+        $this->db->set('member_id', $member_id);
+        $this->db->set('token', $token);
+        $this->db->set('created', 'NOW()', FALSE);
+        $this->db->set('expried', "NOW() + INTERVAL {$time} SECOND", FALSE);
+        @$this->db->insert('__token');
         @$count = $this->db->affected_rows(); //should return the number of rows affected by the last query
         if ($count == 1)
-            return $this->get($app_id,$token);
+            return $this->get_by_token($token);
         return false;
-    }
-
-    function get($app_id='',$token=''){
-        $query = $this->db
-            ->where(array(
-                'token_app_id' => $app_id,
-                'token_id' => $token,
-                ))
-            ->get('auth_token');
-        $row = $query->row();
-        return $row;
     }
     function get_by_token($token){
         $query = $this->db
             ->where(array(
-                'token_id' => $token,
+                'token' => $token,
                 ))
-            ->get('auth_token');
+            ->where('expried > NOW()')
+            ->get('__token');
+        $row = $query->row();
+        return $row;
+    }
+    function get_by_uuid($uuid){
+        $query = $this->db
+            ->where(array(
+                'uuid' => $uuid,
+                ))
+            ->get('__token');
         $row = $query->row();
         return $row;
     }
     function delete_expried_token(){
         @$this->db
-            ->where('token_expried <','NOW()',FALSE)
-            ->delete('auth_token');
+            ->where('expried <','NOW()',FALSE)
+            ->delete('__token');
     }
-    function update($token_id,$time=7200){
-        $this->db->set('token_modified', 'NOW()', FALSE);
-        $this->db->set('token_expried', "NOW() + INTERVAL {$time} SECOND", FALSE);
+    function update($token,$time = 60*60*24*365){
+        $this->db->set('modified', 'NOW()', FALSE);
+        $this->db->set('expried', "NOW() + INTERVAL {$time} SECOND", FALSE);
         @$this->db
-            ->where('token_id',$token_id)
-            ->update('auth_token');
+            ->where('token',$token)
+            ->update('__token');
         @$count = $this->db->affected_rows(); //should return the number of rows affected by the last query
         if ($count == 1)
             return true;

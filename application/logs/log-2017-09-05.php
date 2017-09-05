@@ -1570,3 +1570,178 @@ DEBUG - 2017-09-05 17:00:57 --> UTF-8 Support Enabled
 DEBUG - 2017-09-05 17:00:57 --> Global POST, GET and COOKIE data sanitized
 DEBUG - 2017-09-05 17:00:57 --> Session class already loaded. Second attempt ignored.
 DEBUG - 2017-09-05 17:00:57 --> Total execution time: 0.1358
+DEBUG - 2017-09-05 19:07:01 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 19:07:01 --> No URI present. Default controller set.
+DEBUG - 2017-09-05 19:07:01 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2017-09-05 19:07:02 --> Session class already loaded. Second attempt ignored.
+DEBUG - 2017-09-05 19:07:02 --> Total execution time: 0.7285
+DEBUG - 2017-09-05 19:07:02 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 19:07:02 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 19:07:02 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 19:07:02 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2017-09-05 19:07:02 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2017-09-05 19:07:02 --> Global POST, GET and COOKIE data sanitized
+ERROR - 2017-09-05 19:07:02 --> 404 Page Not Found: Assets/creative
+ERROR - 2017-09-05 19:07:02 --> 404 Page Not Found: Assets/creative
+ERROR - 2017-09-05 19:07:02 --> 404 Page Not Found: Assets/creative
+DEBUG - 2017-09-05 19:07:02 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 19:07:02 --> Global POST, GET and COOKIE data sanitized
+ERROR - 2017-09-05 19:07:02 --> 404 Page Not Found: Assets/creative
+DEBUG - 2017-09-05 19:07:02 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 19:07:02 --> Global POST, GET and COOKIE data sanitized
+ERROR - 2017-09-05 19:07:02 --> 404 Page Not Found: Assets/creative
+DEBUG - 2017-09-05 19:07:02 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 19:07:02 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 19:07:02 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 19:07:02 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2017-09-05 19:07:02 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2017-09-05 19:07:02 --> Global POST, GET and COOKIE data sanitized
+ERROR - 2017-09-05 19:07:02 --> 404 Page Not Found: Data/image
+ERROR - 2017-09-05 19:07:02 --> 404 Page Not Found: Data/image
+ERROR - 2017-09-05 19:07:02 --> 404 Page Not Found: Data/image
+DEBUG - 2017-09-05 19:07:03 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 19:07:03 --> Global POST, GET and COOKIE data sanitized
+ERROR - 2017-09-05 19:07:03 --> 404 Page Not Found: Faviconico/index
+DEBUG - 2017-09-05 19:07:14 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 19:07:14 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2017-09-05 19:07:14 --> Session class already loaded. Second attempt ignored.
+DEBUG - 2017-09-05 19:07:14 --> Total execution time: 0.3463
+DEBUG - 2017-09-05 19:07:54 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 19:07:54 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2017-09-05 19:07:54 --> Session class already loaded. Second attempt ignored.
+DEBUG - 2017-09-05 19:07:54 --> Total execution time: 0.0819
+DEBUG - 2017-09-05 19:08:02 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 19:08:02 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2017-09-05 19:08:02 --> Session class already loaded. Second attempt ignored.
+DEBUG - 2017-09-05 19:08:02 --> Total execution time: 0.1536
+DEBUG - 2017-09-05 19:27:36 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 19:27:36 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2017-09-05 19:27:36 --> Session class already loaded. Second attempt ignored.
+DEBUG - 2017-09-05 19:27:36 --> Total execution time: 0.1940
+DEBUG - 2017-09-05 19:28:05 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 19:28:05 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2017-09-05 19:28:05 --> Session class already loaded. Second attempt ignored.
+DEBUG - 2017-09-05 19:28:05 --> Total execution time: 0.0713
+DEBUG - 2017-09-05 19:29:58 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 19:29:58 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2017-09-05 19:29:58 --> Session class already loaded. Second attempt ignored.
+DEBUG - 2017-09-05 19:29:58 --> Total execution time: 0.0727
+DEBUG - 2017-09-05 19:45:59 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 19:45:59 --> Global POST, GET and COOKIE data sanitized
+ERROR - 2017-09-05 19:45:59 --> 404 Page Not Found: api/Device/register
+DEBUG - 2017-09-05 19:46:08 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 19:46:08 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2017-09-05 19:46:08 --> Session class already loaded. Second attempt ignored.
+ERROR - 2017-09-05 19:46:09 --> Severity: error --> Exception: Unable to locate the model you have specified: Client_Model D:\xampp\htdocs\guru\system\core\Loader.php 344
+DEBUG - 2017-09-05 19:46:26 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 19:46:26 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2017-09-05 19:46:26 --> Session class already loaded. Second attempt ignored.
+ERROR - 2017-09-05 19:46:26 --> Severity: error --> Exception: Unable to locate the model you have specified: Client_Model D:\xampp\htdocs\guru\system\core\Loader.php 344
+DEBUG - 2017-09-05 19:46:58 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 19:46:58 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2017-09-05 19:46:58 --> Session class already loaded. Second attempt ignored.
+DEBUG - 2017-09-05 19:46:58 --> Total execution time: 0.0813
+DEBUG - 2017-09-05 19:54:42 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 19:54:42 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2017-09-05 19:54:42 --> Session class already loaded. Second attempt ignored.
+ERROR - 2017-09-05 19:54:42 --> Severity: Error --> Call to a member function insert_device() on null D:\xampp\htdocs\guru\application\controllers\api\Device.php 25
+DEBUG - 2017-09-05 19:54:58 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 19:54:58 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2017-09-05 19:54:58 --> Session class already loaded. Second attempt ignored.
+DEBUG - 2017-09-05 19:54:59 --> Total execution time: 0.1719
+DEBUG - 2017-09-05 19:56:46 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 19:56:46 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2017-09-05 19:56:46 --> Session class already loaded. Second attempt ignored.
+DEBUG - 2017-09-05 19:56:46 --> Total execution time: 0.0714
+DEBUG - 2017-09-05 20:25:22 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 20:25:22 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2017-09-05 20:25:22 --> Session class already loaded. Second attempt ignored.
+DEBUG - 2017-09-05 20:25:22 --> Total execution time: 0.2452
+DEBUG - 2017-09-05 20:26:28 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 20:26:28 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2017-09-05 20:26:28 --> Session class already loaded. Second attempt ignored.
+DEBUG - 2017-09-05 20:26:28 --> Total execution time: 0.0740
+DEBUG - 2017-09-05 20:26:45 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 20:26:45 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2017-09-05 20:26:45 --> Session class already loaded. Second attempt ignored.
+DEBUG - 2017-09-05 20:26:45 --> Total execution time: 0.2080
+DEBUG - 2017-09-05 20:26:48 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 20:26:48 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2017-09-05 20:26:48 --> Session class already loaded. Second attempt ignored.
+DEBUG - 2017-09-05 20:26:48 --> Total execution time: 0.0745
+DEBUG - 2017-09-05 20:29:06 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 20:29:06 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2017-09-05 20:29:07 --> Session class already loaded. Second attempt ignored.
+DEBUG - 2017-09-05 20:29:07 --> Total execution time: 0.0670
+DEBUG - 2017-09-05 20:29:38 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 20:29:38 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2017-09-05 20:29:38 --> Session class already loaded. Second attempt ignored.
+DEBUG - 2017-09-05 20:29:39 --> Total execution time: 0.2648
+DEBUG - 2017-09-05 20:38:48 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 20:38:48 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2017-09-05 20:38:48 --> Session class already loaded. Second attempt ignored.
+DEBUG - 2017-09-05 20:38:48 --> Total execution time: 0.2493
+DEBUG - 2017-09-05 20:57:19 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 20:57:19 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2017-09-05 20:57:19 --> Session class already loaded. Second attempt ignored.
+DEBUG - 2017-09-05 20:57:19 --> Total execution time: 0.1746
+DEBUG - 2017-09-05 20:57:54 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 20:57:54 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2017-09-05 20:57:54 --> Session class already loaded. Second attempt ignored.
+DEBUG - 2017-09-05 20:57:54 --> Total execution time: 0.1281
+DEBUG - 2017-09-05 21:00:10 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 21:00:10 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2017-09-05 21:00:10 --> Session class already loaded. Second attempt ignored.
+DEBUG - 2017-09-05 21:00:10 --> Total execution time: 0.2058
+DEBUG - 2017-09-05 21:00:16 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 21:00:16 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2017-09-05 21:00:16 --> Session class already loaded. Second attempt ignored.
+DEBUG - 2017-09-05 21:00:16 --> Total execution time: 0.1674
+DEBUG - 2017-09-05 21:00:21 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 21:00:21 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2017-09-05 21:00:21 --> Session class already loaded. Second attempt ignored.
+DEBUG - 2017-09-05 21:00:21 --> Total execution time: 0.1415
+DEBUG - 2017-09-05 21:00:35 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 21:00:35 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2017-09-05 21:00:35 --> Session class already loaded. Second attempt ignored.
+DEBUG - 2017-09-05 21:00:35 --> Total execution time: 0.1448
+DEBUG - 2017-09-05 21:00:41 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 21:00:41 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2017-09-05 21:00:41 --> Session class already loaded. Second attempt ignored.
+DEBUG - 2017-09-05 21:00:41 --> Total execution time: 0.0713
+DEBUG - 2017-09-05 21:00:46 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 21:00:46 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2017-09-05 21:00:46 --> Session class already loaded. Second attempt ignored.
+DEBUG - 2017-09-05 21:00:46 --> Total execution time: 0.1634
+DEBUG - 2017-09-05 21:03:20 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 21:03:20 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2017-09-05 21:03:20 --> Session class already loaded. Second attempt ignored.
+DEBUG - 2017-09-05 21:03:21 --> Total execution time: 0.3019
+DEBUG - 2017-09-05 21:03:51 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 21:03:51 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2017-09-05 21:03:51 --> Session class already loaded. Second attempt ignored.
+DEBUG - 2017-09-05 21:03:51 --> Total execution time: 0.0741
+DEBUG - 2017-09-05 21:10:50 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 21:10:50 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2017-09-05 21:10:51 --> Session class already loaded. Second attempt ignored.
+DEBUG - 2017-09-05 21:10:51 --> Total execution time: 0.2012
+DEBUG - 2017-09-05 21:11:15 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 21:11:15 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2017-09-05 21:11:15 --> Session class already loaded. Second attempt ignored.
+DEBUG - 2017-09-05 21:11:15 --> Total execution time: 0.0625
+DEBUG - 2017-09-05 21:11:44 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 21:11:44 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2017-09-05 21:11:44 --> Session class already loaded. Second attempt ignored.
+DEBUG - 2017-09-05 21:11:44 --> Total execution time: 0.0802
+DEBUG - 2017-09-05 21:12:50 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 21:12:50 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2017-09-05 21:12:50 --> Session class already loaded. Second attempt ignored.
+ERROR - 2017-09-05 21:12:50 --> Severity: Error --> Call to a member function get_by_id() on null D:\xampp\htdocs\guru\application\core\Api_Controller.php 127
+DEBUG - 2017-09-05 21:13:36 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 21:13:36 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2017-09-05 21:13:36 --> Session class already loaded. Second attempt ignored.
+ERROR - 2017-09-05 21:13:36 --> Severity: Error --> Call to a member function get_by_id() on null D:\xampp\htdocs\guru\application\core\Api_Controller.php 127
+DEBUG - 2017-09-05 21:14:02 --> UTF-8 Support Enabled
+DEBUG - 2017-09-05 21:14:02 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2017-09-05 21:14:02 --> Session class already loaded. Second attempt ignored.
+DEBUG - 2017-09-05 21:14:02 --> Total execution time: 0.1765

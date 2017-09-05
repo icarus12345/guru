@@ -23,8 +23,8 @@ class Api_Controller extends CI_Controller {
         $this->CI =& get_instance();
         $this->assigns = array();
         $this->load->model('api/Token_Model');
-        $this->load->model('api/Client_Model');
-        $this->load->model('api/Account_Model');
+        $this->load->model('api/Device_Model');
+        $this->load->model('api/Member_Model');
         if($_model){
             $this->load->model("api/{$_model}_Model");
             $model = $_model.'_Model';
@@ -45,8 +45,9 @@ class Api_Controller extends CI_Controller {
         if($this->_page <= 0) $this->_page = null; 
         $this->_id = $this->input->get('id');
         $this->_debug = $this->input->get('debug');
+
         // $this->valid_device();
-        // $this->valid_token();
+        $this->valid_token();
     }
 
     function index(){
@@ -82,7 +83,7 @@ class Api_Controller extends CI_Controller {
             $this->_output['page'] = $this->_page;
             $this->_output['perpage'] = $this->_perpage;
         }
-        $this->_output['code'] = 1;
+        $this->_output['code'] = 0;
         $this->_output['text'] = 'ok';
         $this->_output['message'] = 'success';
     }
@@ -117,28 +118,15 @@ class Api_Controller extends CI_Controller {
         }
     }
     function valid_token() {
-        $app_id = $this->input->post('app_id');
         // $token = $_SERVER['HTTP_X_CSRF_TOKEN'];
-        $token = $this->input->post('token');
-        $tok = $this->Token_Model->get_by_token($token);
+        $stoken = $this->input->get_post('token');
+        $token = $this->Token_Model->get_by_token($stoken);
         $valid = false;
-        if($tok){
-            $this->Token_Model->update($tok->token_id);
-            $valid = true;
-            $user = $this->session->userdata('api_user');
-            if(!$user){
+        if($token){
+            $this->Token_Model->update($token->token);
+            $member = $this->Member_Model->get_by_id($token->member_id);
+            $this->member = $member;
 
-                $user = $this->Account_Model->get_by_id($tok->token_app_id);
-                $this->session->set_userdata('api_user', $user);
-            }
-            $this->user = $user;
-
-        }
-        if(!$valid){
-            // $this->_code = 403;
-            // $this->_output['message'] = 'Permission denied.';
-            // $this->display();
-            // die;
         }
     }
 
@@ -151,7 +139,7 @@ class Api_Controller extends CI_Controller {
         $id=$this->input->get_post('id');
         $data = $this->API_Model->get($id);
         $this->_output['data'] = $data;
-        $this->_output['code'] = 1;
+        $this->_output['code'] = 0;
         $this->_output['text'] = 'ok';
         $this->_output['message'] = 'success';
         
