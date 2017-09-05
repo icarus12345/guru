@@ -3,7 +3,7 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class API_Model extends CI_Model {
     private $configs;
-    function __construct($table = '', $prefix = '',$colid='id',$status=1) {
+    function __construct($table = '', $prefix = '',$colid='id',$status='true') {
         parent::__construct();
         $this->table = $table;
         $this->prefix = $prefix;
@@ -13,6 +13,11 @@ class API_Model extends CI_Model {
     function select($select = null){
         if($select) $this->db->select($select);
         if($this->_select) $this->db->select($this->_select);
+        return $this;
+    }
+    function limit($page=1,$perpage = 10){
+        
+        $this->db->limit($perpage, ($page - 1) * $perpage);
         return $this;
     }
     function filter($filter = null){

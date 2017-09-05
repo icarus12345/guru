@@ -8,10 +8,11 @@
   Purpose of the stylesheet follows.
  */
 
-class Product_Model extends API_Model {
+class Trademark_Model extends API_Model {
     function __construct() {
-        parent::__construct('tbl_product');
-        $this->_select = array('id','title','data','sorting','view','category','overview');
+        parent::__construct('__trademark');
+        $this->_select = array('id','title','logo','image');
+        
     }
 }
 

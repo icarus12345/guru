@@ -1,6 +1,7 @@
 <?php 
 $CI =& get_instance();
 $user = $CI->session->userdata('dasbboard_user');
+$user_privileges = explode(',',$user->ause_authority);
 ?>
 <form name="user-detail-frm" id="user-detail-frm" target="integration_asynchronous" class="validation-frm">
     <input 
@@ -11,7 +12,9 @@ $user = $CI->session->userdata('dasbboard_user');
         >
     <div class="row half">
     <?php 
-    if($user->ause_authority == '1'){
+    $privileges = array('1');
+    $check = !!array_intersect($user_privileges,$privileges);
+    if($check){
     ?>
         <div class="col-xs-5 half">
             <div class="pull-bottom">

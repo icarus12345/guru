@@ -16,7 +16,7 @@ class Core_Controller extends CI_Controller {
         $this->load->model('dashboard/Category_Model');
         $this->load->model('dashboard/Auth_Model');
         $cat_type = 'dashboard';
-        $this->db->where('status','1');
+        $this->db->where('status','true');
         $menu_model = new Core_Model('__menu');
         $this->db->order_by('value','ASC');
         $cate_data = $menu_model

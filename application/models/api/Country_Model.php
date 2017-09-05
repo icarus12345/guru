@@ -8,10 +8,10 @@
   Purpose of the stylesheet follows.
  */
 
-class Contactus_Model extends API_Model {
+class Country_Model extends API_Model {
     function __construct() {
-        parent::__construct('tbl_contactus');
-        $this->_select = array('id','title','data','sorting');
+        parent::__construct('__countries');
+        $this->_select = array('id','title','code');
     }
 }
 

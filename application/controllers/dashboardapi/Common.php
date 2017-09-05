@@ -730,7 +730,7 @@ class Common extends DApi_Controller {
                 if(!empty($params[$prefix.'data'])) $params[$prefix.'data'] = serialize($params[$prefix.'data']);
                 if(!empty($params[$prefix.'longdata'])) $params[$prefix.'longdata'] = serialize($params[$prefix.'longdata']);
                 // if(isset($longdata)) $params['longdata'] = serialize($longdata);
-                $params[$this->prefix.'status'] = true;
+                $params[$this->prefix.'status'] = 'true';
                 $params[$this->prefix.'author'] = $user->ause_id;
                 if($entry_setting->data['columns']) foreach ($entry_setting->data['columns'] as $key => $column) {
                     if(

@@ -12,6 +12,7 @@ class Type extends Api_Controller {
 
     function index(){
         parent::run();
+        $this->display();
     }
 
     function get_all(){

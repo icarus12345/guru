@@ -30,7 +30,6 @@ class Api_Controller extends CI_Controller {
             $model = $_model.'_Model';
             $this->API_Model = $this->$model;
         }
-        $this->load->model('api/Cate_Model');
         $this->_code = 200;
         $this->_output = array(
             'text' => 'fail',
@@ -38,12 +37,15 @@ class Api_Controller extends CI_Controller {
             'code' => -1,
         );
         $this->form_validation->set_error_delimiters('', '');
-        $this->_filters = $this->input->get_post('filters');
-        $this->_searchs = $this->input->get_post('searchs');
-        $this->_page = $this->input->get_post('page');
-        $this->_limit = $this->input->get_post('limit');
-        $this->_id = $this->input->get_post('id');
-        $this->valid_device();
+        $this->_params = $this->input->get();
+        // $this->_searchs = $this->input->get_post('searchs');
+        $this->_page = (int)$this->input->get('page');
+        $this->_perpage = (int) $this->input->get('perpage');
+        if($this->_perpage <= 0) $this->_perpage = 10;
+        if($this->_page <= 0) $this->_page = null; 
+        $this->_id = $this->input->get('id');
+        $this->_debug = $this->input->get('debug');
+        // $this->valid_device();
         // $this->valid_token();
     }
 
@@ -51,17 +53,38 @@ class Api_Controller extends CI_Controller {
         echo 'Welcome API';
     }
     function run(){
+        if($this->_page) {
+            $this->db->select('SQL_CALC_FOUND_ROWS id',false);
+            $this->API_Model
+                ->limit($this->_page,$this->_perpage);
+        }
         if(!empty($this->_id)) {
             $row = $this->API_Model->get($this->_id);
             $this->_output['data'] = $row;
+        } elseif(!empty($this->_params)) {
+            if(!empty($this->_filter_allows)) foreach ($this->_filter_allows as $column) {
+                $value = $this->_params[$column];
+                $filters[$column] = $value;
+            }
+            if($filters) $this->API_Model->filter($filters);
+            $data = $this->API_Model->gets();
+            $this->_output['data'] = $data;
         } else {
             $data = $this->API_Model->gets();
             $this->_output['data'] = $data;
         }
+        if($this->_debug) $this->_output['query'][] = $this->db->last_query();
+        if($this->_page){
+            $query = $this->db->query('SELECT FOUND_ROWS() AS `total_rows`;');
+            $tmp = $query->row_array();
+            $total_rows = (int)$tmp['total_rows'];
+            $this->_output['hit'] = $total_rows;
+            $this->_output['page'] = $this->_page;
+            $this->_output['perpage'] = $this->_perpage;
+        }
         $this->_output['code'] = 1;
         $this->_output['text'] = 'ok';
         $this->_output['message'] = 'success';
-        $this->display();
     }
 
     
@@ -119,38 +142,7 @@ class Api_Controller extends CI_Controller {
         }
     }
 
-    function get_by_cid(){
-        $this->_output['code'] = -1;
-        $this->_output['text'] = 'fail';
-        $this->_output['message'] = 'Bad Request !';
-        $cid=$this->input->get_post('cid');
-        $c = $this->Cate_Model
-            ->select('value')
-            ->get($cid);
-        if($c){
-            $data = [];
-            $cates = $this->Cate_Model
-                ->search(array('value'=>$c->value))
-                ->get_by_type('mega');
-            foreach ($cates as $key => $value) {
-                $cids[] = $value->id;
-            }
-            if($cids){
-                $data = $this->API_Model
-                ->filter_in(array('category'=>$cids))
-                ->get_by_type('mega');
-            }
-            $this->_output['data'] = $data;
-            $this->_output['code'] = 1;
-            $this->_output['text'] = 'ok';
-            $this->_output['message'] = 'success';
-        }else{
-            $this->_output['message'] = 'Category not exists !';
-        }
-
-        
-        $this->display();
-    }
+    
 
     function get(){
         $this->_output['code'] = -1;
