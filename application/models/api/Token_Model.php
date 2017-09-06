@@ -53,6 +53,11 @@ class Token_Model extends CI_Model {
             ->where('expried <','NOW()',FALSE)
             ->delete('__token');
     }
+    function delete_by_uuid($uuid){
+        @$this->db
+            ->where('uuid',$uuid)
+            ->delete('__token');
+    }
     function update($token,$time = 60*60*24*365){
         $this->db->set('modified', 'NOW()', FALSE);
         $this->db->set('expried', "NOW() + INTERVAL {$time} SECOND", FALSE);

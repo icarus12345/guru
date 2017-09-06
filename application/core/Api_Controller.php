@@ -119,8 +119,8 @@ class Api_Controller extends CI_Controller {
     }
     function valid_token() {
         // $token = $_SERVER['HTTP_X_CSRF_TOKEN'];
-        $stoken = $this->input->get_post('token');
-        $token = $this->Token_Model->get_by_token($stoken);
+        $uuid = $this->input->get_post('uuid');
+        $token = $this->Token_Model->get_by_uuid($uuid);
         $valid = false;
         if($token){
             $this->Token_Model->update($token->token);

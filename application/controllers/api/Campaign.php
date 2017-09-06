@@ -3,7 +3,7 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Campaign extends Api_Controller {
     function __construct() {
         parent::__construct('Campaign');
-        
+        $this->load->model('api/Shop_Model');
     }
 
     public $rules = array(
@@ -61,13 +61,20 @@ class Campaign extends Api_Controller {
         $this->display();
     }
     function get_news(){
-        if($this->$this->member){
-            $data = $this->API_Model->get_by_today();
-            $this->_output['data']['NewData'] = $this->_fixdata($data);
-            $data = $this->API_Model->get_by_like();
-            $this->_output['data']['LikeData'] = $this->_fixdata($data);
+        $province_id = $this->input->get('province_id');
+        $shop_data = $this->Shop_Model->get_by_province($province_id);
+        $this->_output['debugs']['ShopQuery'] = $this->db->last_query();
+        if($this->member){
+            if($shop_data){
+                $data = $this->API_Model->get_by_today_follow_shops($shop_data);
+                $this->_output['debugs']['NewQuery'] = $this->db->last_query();
+                $this->_output['data']['NewData'] = $this->_fixdata($data);
+                $data = $this->API_Model->get_by_like_follow_shops($shop_data);
+                $this->_output['debugs']['LikeQuery'] = $this->db->last_query();
+                $this->_output['data']['LikeData'] = $this->_fixdata($data);
+            }
         }
-        $data = $this->API_Model->get_actived($this->_page,$this->_perpage);
+        $data = $this->API_Model->get_actived_follow_shops($shop_data,$this->_page,$this->_perpage);
         if($data){
             $query = $this->db->query('SELECT FOUND_ROWS() AS `total_rows`;');
             $tmp = $query->row_array();

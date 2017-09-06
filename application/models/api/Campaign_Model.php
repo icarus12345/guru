@@ -12,14 +12,34 @@ class Campaign_Model extends API_Model {
     function __construct() {
         parent::__construct('__campaign');
         $this->_select = array(
-            'id','title','desc','image','trademark_id',
-            // 'start_date',
-            'end_date',
-            'website','hotline','type_id','category_id','count_like','count_view','rating'
+            '__campaign.id',
+            '__campaign.title',
+            '__campaign.desc',
+            '__campaign.image',
+            '__campaign.trademark_id',
+            // '__campaign.start_date',
+            '__campaign.end_date',
+            '__campaign.website',
+            '__campaign.hotline',
+            '__campaign.type_id',
+            '__campaign.category_id',
+            '__campaign.count_like',
+            '__campaign.count_view',
+            '__campaign.rating'
             );
     }
-
-    function get_actived($page, $perpage){
+    
+    function get_actived_follow_shops($shops,$page, $perpage){
+        if(!empty($shops)){
+            $this->db->group_start();
+            foreach ($shops as $key => $value) {
+                if($key == 0)
+                    $this->db->like('shop_ids',$value->id);
+                else
+                    $this->db->or_like('shop_ids',$value->id);
+            }
+            $this->db->group_end();
+        }
         if($page){
             $this->db
                 ->select('SQL_CALC_FOUND_ROWS id',false)
@@ -28,15 +48,26 @@ class Campaign_Model extends API_Model {
         $query = $this->db
             ->select($this->_select)
             ->from('__campaign')
-            ->where('start_date < NOW()')
-            ->where('end_date > NOW()')
-            ->where('status','true')
+            // ->join('__shop','__campaign.shop_ids')
+            ->where('__campaign.start_date < NOW()')
+            ->where('__campaign.end_date > NOW()')
+            ->where('__campaign.status','true')
             ->get();
         $entrys = $query->result();
         return $entrys;
     }
 
-    function get_by_today(){
+    function get_by_today_follow_shops($shops){
+        if(!empty($shops)){
+            $this->db->group_start();
+            foreach ($shops as $key => $value) {
+                if($key == 0)
+                    $this->db->like('shop_ids',$value->id);
+                else
+                    $this->db->or_like('shop_ids',$value->id);
+            }
+            $this->db->group_end();
+        }
         $query = $this->db
             ->select($this->_select)
             ->from('__campaign')
@@ -48,7 +79,17 @@ class Campaign_Model extends API_Model {
         return $entrys;
     }
 
-    function get_by_like(){
+    function get_by_like_follow_shops($shops){
+        if(!empty($shops)){
+            $this->db->group_start();
+            foreach ($shops as $key => $value) {
+                if($key == 0)
+                    $this->db->like('shop_ids',$value->id);
+                else
+                    $this->db->or_like('shop_ids',$value->id);
+            }
+            $this->db->group_end();
+        }
         $query = $this->db
             ->select($this->_select)
             ->from('__campaign')

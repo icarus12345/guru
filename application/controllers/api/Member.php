@@ -170,6 +170,7 @@ class Member extends Api_Controller {
             $member = $this->API_Model->get_by_username($username);
             if($member){
                 if($member->password == md5($password)){
+                    $this->Token_Model->delete_by_uuid($uuid);
                     $token = $this->Token_Model->create($uuid,$member->id);
                     if($token){
                         $this->_output['code'] = 0;
