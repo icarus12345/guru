@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Welcome extends Front_Controller {
+class Welcome extends CI_Controller {
 
     /**
      * Index Page for this controller.
@@ -23,13 +23,7 @@ class Welcome extends Front_Controller {
     }
     public function index()
     {
-        $this->layout='home';
-        $slider = $this->model
-            ->set_type('slider')
-            ->desc()
-            ->gets();
-        $this->assigns['slider'] = $slider;
-        $this->render(null,null);
+        $this->load->view("welcome_message",null);
     }
 
 }
