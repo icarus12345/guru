@@ -15,7 +15,7 @@ class Debug extends CI_Controller {
 // delete from __company where id > 1004;
 // delete from auth_users where ause_id > 10029;
         echo '<pre>';
-        for($i=31;$i <= 51; $i++){
+        for($i=61;$i <= 81; $i++){
             $company_title = 'Company Name' . $i;
             $params = array(
                 'title' => $company_title,
@@ -104,7 +104,7 @@ class Debug extends CI_Controller {
                             $shop_ids[] = $value->id;
                         }
                         $shop_ids = implode(',',$shop_ids);
-                        $cnum = rand(1,5);
+                        $cnum = rand(1, 30);
                         $min = strtotime('2017-09-01 00:00:00');
                         $max = strtotime('2017-10-30 23:59:00');
                         for($c = 1;$c<=$cnum;$c++){

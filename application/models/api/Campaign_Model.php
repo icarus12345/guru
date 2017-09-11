@@ -28,6 +28,9 @@ class Campaign_Model extends API_Model {
             '__campaign.rating'
             );
     }
+    function calc_found_row(){
+        
+    }
     function in_shops($shops){
         if(!empty($shops)){
             $this->db->group_start();

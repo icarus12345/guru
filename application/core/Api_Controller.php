@@ -44,7 +44,8 @@ class Api_Controller extends CI_Controller {
         if($this->_perpage <= 0) $this->_perpage = 10;
         if($this->_page <= 0) $this->_page = null; 
         $this->_id = $this->input->get('id');
-        $this->_debug = $this->input->get('debug');
+        $this->_debug = (int)$this->input->get_post('debug');
+        $this->_showquery = (int)$this->input->get_post('showquery');
 
         // $this->valid_device();
         $this->valid_token();
@@ -120,7 +121,9 @@ class Api_Controller extends CI_Controller {
     function valid_token() {
         // $token = $_SERVER['HTTP_X_CSRF_TOKEN'];
         $uuid = $this->input->get_post('uuid');
-        $token = $this->Token_Model->get_by_uuid($uuid);
+        $token = $this->input->get_post('token');
+        // $token = $this->Token_Model->get_by_uuid($uuid);
+        $token = $this->Token_Model->get_by_token($token);
         $valid = false;
         if($token){
             $this->Token_Model->update($token->token);

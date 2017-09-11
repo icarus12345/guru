@@ -62,11 +62,11 @@ class Member extends Api_Controller {
                     'label'=>'Password',
                     'rules'=>'trim|min_length[4]|max_length[20]'
                 ),
-                'uuid' => array(
-                    'field'=>'uuid',
-                    'label'=>'UUID',
-                    'rules'=>'trim|min_length[4]|max_length[100]'
-                ),
+                // 'uuid' => array(
+                //     'field'=>'uuid',
+                //     'label'=>'UUID',
+                //     'rules'=>'trim|min_length[4]|max_length[100]'
+                // ),
         ),
     );
     function index(){

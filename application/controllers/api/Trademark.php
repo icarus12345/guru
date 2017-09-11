@@ -28,7 +28,8 @@ class Trademark extends Api_Controller {
     function index(){
         if($this->member){
             $trademark_data = $this->Trademark_Model->get_by_wish();
-            // $this->_output['debugs']['like_trademark_query'] = $this->db->last_query();
+            if($this->_debug) $this->_output['DEBUG']['TrademarkByWish']['items'] = $shop_data;
+            if($this->_showquery) $this->_output['Queries']['TrademarkByWish'] = $this->db->last_query();
             $this->_output['LikeData']['items'] = $trademark_data;
             if($trademark_data) $this->_output['LikeData']['hit'] = count($trademark_data);
         }
@@ -36,12 +37,15 @@ class Trademark extends Api_Controller {
             ->gets();
         $this->_output['ArrData']['items'] = $data;
         if($data) $this->_output['ArrData']['hit'] = count($data);
+        else $this->_output['ArrData']['hit'] = 0;
 
         $this->_output['code'] = 1;
         $this->_output['text'] = 'ok';
         $this->_output['message'] = 'success';
         $this->display();
     }
+
+    
 
     function wish(){
         $this->form_validation->set_rules($this->rules['wish']);

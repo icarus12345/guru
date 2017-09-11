@@ -39,23 +39,41 @@ class Campaign extends Api_Controller {
     //     $this->_output['data'] = $this->_fixdata($data);
     //     $this->display();
     // }
-    function get_all(){
-        $data = $this->API_Model->get_actived($this->_page,$this->_perpage);
+    function filter(){
+        $types = $this->input->get('types');
+        $categories = $this->input->get('categories');
+        $sort = $this->input->get('sort');
+        if(!empty($categories)){
+            $categories = explode(',', $categories);
+            $this->db->where_in('category_id',$categories);
+        }
+        if(!empty($types)){
+            $types = explode(',', $types);
+            $this->db->where_in('type_id',$types);
+        }
+        if($sort == 1){
+            $this->db->order_by('count_view','DESC');
+        } else {
+            $this->db->order_by('end_date','ASC');
+        }
+        $data = $this->Campaign_Model
+            ->get_actived($this->_page,$this->_perpage);
+        if($this->_showquery) $this->_output['Queries']['FilterCampaigns'] = $this->db->last_query();
         if($data){
             $query = $this->db->query('SELECT FOUND_ROWS() AS `total_rows`;');
             $tmp = $query->row_array();
             $total_rows = (int)$tmp['total_rows'];
-            
-            $data = $this->_fixdata($data);
+            if($data) $this->_output['ArrData']['hit'] = $total_rows;
             if($this->_page){
-                $this->_output['data']['hit'] = $total_rows;
-                $this->_output['data']['page'] = $this->_page;
-                $this->_output['data']['perpage'] = $this->_perpage;
-                $this->_output['data']['items'] = $data;
-            } else {
-                $this->_output['data'] = $data;
+                $this->_output['ArrData']['page'] = $this->_page;
+                $this->_output['ArrData']['perpage'] = $this->_perpage;
             }
+        } else {
+            $this->_output['ArrData']['hit'] = 0;
         }
+        $this->_output['ArrData']['items'] = $data;
+        
+
         $this->_output['code'] = 1;
         $this->_output['text'] = 'ok';
         $this->_output['message'] = 'success';
@@ -64,26 +82,28 @@ class Campaign extends Api_Controller {
     function index(){
         $province_id = $this->input->get('province_id');
         $shop_data = $this->Shop_Model->get_by_province($province_id);
-        // $this->_output['debugs']['ShopQuery'] = $this->db->last_query();
+        if($this->_debug) $this->_output['DEBUG']['ShopByProvince']['items'] = $shop_data;
+        if($this->_showquery) $this->_output['Queries']['ShopByProvince'] = $this->db->last_query();
         if($this->member){
             $trademark_data = $this->Trademark_Model->get_by_wish();
-            // $this->_output['debugs']['like_trademark_query'] = $this->db->last_query();
-            if($shop_data && $trademark_data){
+            if($this->_debug) $this->_output['DEBUG']['TrademarkByWish']['items'] = $shop_data;
+            if($this->_showquery) $this->_output['Queries']['TrademarkByWish'] = $this->db->last_query();
+            // if($shop_data && $trademark_data){
                 $data = $this->API_Model
                     ->in_shops($shop_data)
                     ->in_trademark($trademark_data)
                     ->get_by_today();
-                // $this->_output['debugs']['NewQuery'] = $this->db->last_query();
+                if($this->_showquery) $this->_output['Queries']['NewCampaigns'] = $this->db->last_query();
                 $this->_output['NewData']['items'] = $this->_fixdata($data);
                 if($data) $this->_output['NewData']['hit'] = count($data);
                 $data = $this->API_Model
                     ->in_trademark($trademark_data)
                     ->in_shops($shop_data)
                     ->get_by_like();
-                // $this->_output['debugs']['LikeQuery'] = $this->db->last_query();
+                if($this->_showquery) $this->_output['Queries']['LikeCampaigns'] = $this->db->last_query();
                 $this->_output['LikeData']['items'] = $this->_fixdata($data);
                 if($data) $this->_output['LikeData']['hit'] = count($data);
-            }
+            // }
         }
         $data = $this->API_Model
             ->in_shops($shop_data)
@@ -99,6 +119,8 @@ class Campaign extends Api_Controller {
                 $this->_output['ArrData']['page'] = $this->_page;
                 $this->_output['ArrData']['perpage'] = $this->_perpage;
             }
+        } else {
+            $this->_output['ArrData']['hit'] = 0;
         }
         $this->_output['ArrData']['items'] = $data;
 

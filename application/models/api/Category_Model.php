@@ -8,9 +8,9 @@
   Purpose of the stylesheet follows.
  */
 
-class Type_Model extends API_Model {
+class Category_Model extends API_Model {
     function __construct() {
-        parent::__construct('__type');
+        parent::__construct('__category');
         $this->_select = array('id','title');
     }
 }

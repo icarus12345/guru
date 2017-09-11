@@ -14,6 +14,21 @@ class Trademark_Model extends API_Model {
         $this->_select = array('__trademark.id','__trademark.title','__trademark.logo','__trademark.image');
         
     }
+    function get_actived($page, $perpage){
+        if($page){
+            $this->db
+                ->select('SQL_CALC_FOUND_ROWS id',false)
+                ->limit($perpage, ($page - 1) * $perpage);
+        }
+        $query = $this->db
+            ->select($this->_select)
+            ->from('__trademark')
+            ->where('__trademark.status','true')
+            ->get();
+        $entrys = $query->result();
+        return $entrys;
+    }
+    
     function get_by_wish(){
         $query = $this->db
             ->select($this->_select)
