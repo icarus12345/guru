@@ -31,16 +31,37 @@ class Campaign_Model extends API_Model {
     function calc_found_row(){
         
     }
+    function join_trademark(){
+        $this->db
+            ->select('__trademark.logo',false)
+            ->join('__trademark',"`__trademark`.`id` = `__campaign`.`trademark_id`",'LEFT');
+    }
+    function join_wish(){
+        if($this->member){
+            $member_id = $this->member->id;
+        }else{
+            $member_id = -1;
+        }
+        $this->db
+            ->select('IF(__campaign_wish.status="true",1,0) as like_status',false)
+            ->join('__campaign_wish',"( `__campaign`.`id` = `__campaign_wish`.`campaign_id` AND `__campaign_wish`.`member_id` = $member_id)",'LEFT');
+                
+        return $this;
+    }
     function in_shops($shops){
-        if(!empty($shops)){
-            $this->db->group_start();
-            foreach ($shops as $key => $shop) {
-                if($key == 0)
-                    $this->db->like('__campaign.shop_ids',$shop->id);
-                else
-                    $this->db->or_like('__campaign.shop_ids',$shop->id);
+        if ($shops == -1){
+            $this->db->where('1=2');
+        }else{
+            if(!empty($shops)){
+                $this->db->group_start();
+                foreach ($shops as $key => $shop) {
+                    if($key == 0)
+                        $this->db->like('__campaign.shop_ids',$shop->id);
+                    else
+                        $this->db->or_like('__campaign.shop_ids',$shop->id);
+                }
+                $this->db->group_end();
             }
-            $this->db->group_end();
         }
         return $this;
     }
@@ -54,20 +75,22 @@ class Campaign_Model extends API_Model {
         }
         return $this;
     }
-    function get_actived($page, $perpage){
+    function get_actived($page = null, $perpage = 10){
         if($page){
             $this->db
-                ->select('SQL_CALC_FOUND_ROWS id',false)
+                ->select('SQL_CALC_FOUND_ROWS __campaign.id',false)
                 ->limit($perpage, ($page - 1) * $perpage);
         }
         $query = $this->db
             ->select($this->_select)
             ->from('__campaign')
-            // ->join('__shop','__campaign.shop_ids')
+            
             ->where('__campaign.start_date < NOW()')
             ->where('__campaign.end_date > NOW()')
-            ->where('__campaign.status','true')
-            ->get();
+            ->where('__campaign.status','true');
+        $this->join_wish();
+        $this->join_trademark();
+        $query = $this->db->get();
         $entrys = $query->result();
         return $entrys;
     }
@@ -76,12 +99,14 @@ class Campaign_Model extends API_Model {
         $query = $this->db
             ->select($this->_select)
             ->from('__campaign')
-            ->where('start_date < NOW()')
-            ->where('YEAR(end_date) = YEAR(NOW())')
-            ->where('MONTH(end_date) = MONTH(NOW())')
-            ->where('DAY(end_date) = DAY(NOW())')
-            ->where('status','true')
-            ->get();
+            ->where('__campaign.start_date < NOW()')
+            ->where('YEAR(__campaign.end_date) = YEAR(NOW())')
+            ->where('MONTH(__campaign.end_date) = MONTH(NOW())')
+            ->where('DAY(__campaign.end_date) = DAY(NOW())')
+            ->where('__campaign.status','true');
+        $this->join_wish();
+        $this->join_trademark();
+        $query = $this->db->get();
         $entrys = $query->result();
         return $entrys;
     }
@@ -90,11 +115,14 @@ class Campaign_Model extends API_Model {
         $query = $this->db
             ->select($this->_select)
             ->from('__campaign')
-            ->where('start_date < NOW()')
+            ->where('__campaign.start_date < NOW()')
             // ->where('DAY(end_date) = DAY(NOW())')
-            ->where('end_date > NOW()')
-            ->where('status','true')
-            ->get();
+            ->where('__campaign.end_date > NOW()')
+            ->where('__campaign.status','true')
+            ->where('__campaign_wish.status','true');
+        $this->join_wish();
+        $this->join_trademark();
+        $query = $this->db->get();
         $entrys = $query->result();
         return $entrys;
     }

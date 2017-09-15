@@ -13,6 +13,20 @@ class Province_Model extends API_Model {
         parent::__construct('__province');
         $this->_select = array('id','title','code','type','country_id');
     }
+    function get_by_name($name){
+        return $this
+            ->filter(array(
+            "title" => $name
+            ))
+            ->row();
+    }
+    function get_by_country($country_id){
+        return $this
+            ->filter(array(
+            "country_id" => $country_id
+            ))
+            ->gets();
+    }
 }
 
 ?>

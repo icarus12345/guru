@@ -5,6 +5,7 @@ class Campaign extends Api_Controller {
         parent::__construct('Campaign');
         $this->load->model('api/Shop_Model');
         $this->load->model('api/Trademark_Model');
+        $this->load->model('api/Province_Model');
     }
 
     public $rules = array(
@@ -40,21 +41,26 @@ class Campaign extends Api_Controller {
     //     $this->display();
     // }
     function filter(){
-        $types = $this->input->get('types');
-        $categories = $this->input->get('categories');
-        $sort = $this->input->get('sort');
+        $types = $this->input->get_post('types');
+        $categories = $this->input->get_post('categories');
+        $sort = $this->input->get_post('sort');
+        $q = $this->input->get_post('q');
         if(!empty($categories)){
             $categories = explode(',', $categories);
-            $this->db->where_in('category_id',$categories);
+            $this->Campaign_Model->db->where_in('__campaign.category_id',$categories);
         }
         if(!empty($types)){
             $types = explode(',', $types);
-            $this->db->where_in('type_id',$types);
+            $this->Campaign_Model->db->where_in('__campaign.type_id',$types);
+        }
+        if(!empty($q)){
+            $this->Campaign_Model->db->like('__campaign.title',$q);
         }
         if($sort == 1){
-            $this->db->order_by('count_view','DESC');
+            $this->Campaign_Model->db->order_by('__campaign.count_like','DESC');
+            $this->Campaign_Model->db->order_by('__campaign.count_view','DESC');
         } else {
-            $this->db->order_by('end_date','ASC');
+            $this->Campaign_Model->db->order_by('__campaign.end_date','ASC');
         }
         $data = $this->Campaign_Model
             ->get_actived($this->_page,$this->_perpage);
@@ -71,7 +77,7 @@ class Campaign extends Api_Controller {
         } else {
             $this->_output['ArrData']['hit'] = 0;
         }
-        $this->_output['ArrData']['items'] = $data;
+        $this->_output['ArrData']['items'] = $this->_fixdata($data);;
         
 
         $this->_output['code'] = 1;
@@ -80,8 +86,19 @@ class Campaign extends Api_Controller {
         $this->display();
     }
     function index(){
-        $province_id = $this->input->get('province_id');
-        $shop_data = $this->Shop_Model->get_by_province($province_id);
+        $province_id = $this->input->get_post('province_id');
+        if($province_id){
+            $province = $this->Province_Model->get($province_id);
+            $shop_data = $this->Shop_Model->get_by_province($province_id);
+            // if(!$province){
+            //     $this->_output['code'] = -1;
+            //     $this->_output['text'] = 'fail';
+            //     $this->_output['message'] = 'Province not exists.';
+            //     $this->display();
+            //     die;
+            // }
+            if(!$shop_data) $shop_data = -1;
+        }
         if($this->_debug) $this->_output['DEBUG']['ShopByProvince']['items'] = $shop_data;
         if($this->_showquery) $this->_output['Queries']['ShopByProvince'] = $this->db->last_query();
         if($this->member){
@@ -95,19 +112,20 @@ class Campaign extends Api_Controller {
                     ->get_by_today();
                 if($this->_showquery) $this->_output['Queries']['NewCampaigns'] = $this->db->last_query();
                 $this->_output['NewData']['items'] = $this->_fixdata($data);
-                if($data) $this->_output['NewData']['hit'] = count($data);
+                $this->_output['NewData']['hit'] = count($data);
                 $data = $this->API_Model
                     ->in_trademark($trademark_data)
                     ->in_shops($shop_data)
-                    ->get_by_like();
+                    ->get_actived();
                 if($this->_showquery) $this->_output['Queries']['LikeCampaigns'] = $this->db->last_query();
                 $this->_output['LikeData']['items'] = $this->_fixdata($data);
-                if($data) $this->_output['LikeData']['hit'] = count($data);
+                $this->_output['LikeData']['hit'] = count($data);
             // }
         }
         $data = $this->API_Model
             ->in_shops($shop_data)
             ->get_actived($this->_page,$this->_perpage);
+        if($this->_showquery) $this->_output['Queries']['Campaigns'] = $this->db->last_query();
         if($data){
             $query = $this->db->query('SELECT FOUND_ROWS() AS `total_rows`;');
             $tmp = $query->row_array();
@@ -127,6 +145,28 @@ class Campaign extends Api_Controller {
         $this->_output['code'] = 1;
         $this->_output['text'] = 'ok';
         $this->_output['message'] = 'success';
+        $this->display();
+    }
+    function wish_list(){
+        if($this->member){
+           
+            // if($shop_data && $trademark_data){
+                $data = $this->API_Model
+                    ->get_by_like();
+                if($this->_showquery) $this->_output['Queries']['LikeCampaigns'] = $this->db->last_query();
+                $this->_output['ArrData']['items'] = $this->_fixdata($data);
+                $this->_output['ArrData']['hit'] = count($data);
+            // }
+            $this->_output['ArrData']['items'] = $data;
+            $this->_output['code'] = 1;
+            $this->_output['text'] = 'ok';
+            $this->_output['message'] = 'success';
+        } else {
+            $this->_output['code'] = -1;
+            $this->_output['text'] = 'fail';
+            $this->_output['message'] = 'mising login';
+        }
+        
         $this->display();
     }
 }

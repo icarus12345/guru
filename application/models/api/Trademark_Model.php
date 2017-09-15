@@ -12,19 +12,38 @@ class Trademark_Model extends API_Model {
     function __construct() {
         parent::__construct('__trademark');
         $this->_select = array('__trademark.id','__trademark.title','__trademark.logo','__trademark.image');
+        $this->_selectAs = array();
         
+    }
+    function join_wish(){
+        if($this->member){
+            $member_id = $this->member->id;
+        }else{
+            $member_id = -1;
+        }
+        $this->db
+            ->select('IF(__trademark_wish.status="true",1,0) as like_status',false)
+            ->join('__trademark_wish',"( `__trademark`.`id` = `__trademark_wish`.`trademark_id` AND `__trademark_wish`.`member_id` = $member_id)",'LEFT');
+        return $this;
     }
     function get_actived($page, $perpage){
         if($page){
             $this->db
-                ->select('SQL_CALC_FOUND_ROWS id',false)
+                ->select('SQL_CALC_FOUND_ROWS __trademark.id',false)
                 ->limit($perpage, ($page - 1) * $perpage);
         }
+        $this->db
+            ->select($this->_select);
+        if($this->_selectAs) foreach ($this->_selectAs as $selectStr) {
+            $this->db
+            ->select($selectStr,false);
+        }
         $query = $this->db
-            ->select($this->_select)
+            ->group_by($this->_select)
             ->from('__trademark')
-            ->where('__trademark.status','true')
-            ->get();
+            ->where('__trademark.status','true');
+        $this->join_wish();
+        $query = $this->db->get();
         $entrys = $query->result();
         return $entrys;
     }
@@ -33,11 +52,10 @@ class Trademark_Model extends API_Model {
         $query = $this->db
             ->select($this->_select)
             ->from('__trademark')
-            ->join('__trademark_wish','__trademark.id = __trademark_wish.trademark_id')
-            ->where('__trademark_wish.member_id',$this->member->id)
             ->where('__trademark_wish.status','true')
-            ->where('__trademark.status','true')
-            ->get();
+            ->where('__trademark.status','true');
+        $this->join_wish();
+        $query = $this->db->get();
         $result = $query->result();
         return $result;
     }

@@ -11,17 +11,14 @@ class Province extends Api_Controller {
     );
 
     function index(){
-
-        parent::run();
-        $this->display();
-    }
-
-    function get_all(){
+        $country_id = $this->input->get_post('country_id');
         $this->_output['code'] = 1;
         $this->_output['text'] = 'ok';
         $this->_output['message'] = 'success';
-        $this->_output['data'] = $this->API_Model
-            ->gets();
+        $data =  $this->API_Model
+            ->get_by_country($country_id);
+        $this->_output['ArrData']['hit'] = count($data);
+        $this->_output['ArrData']['items'] = $data;
         $this->display();
     }
 }

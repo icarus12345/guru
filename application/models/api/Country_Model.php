@@ -13,6 +13,13 @@ class Country_Model extends API_Model {
         parent::__construct('__countries');
         $this->_select = array('id','title','code');
     }
+    function get_by_code($code){
+        return $this
+            ->filter(array(
+            "code" => $code
+            ))
+            ->row();
+    }
 }
 
 ?>

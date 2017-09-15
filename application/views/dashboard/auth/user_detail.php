@@ -12,8 +12,8 @@ $user_privileges = explode(',',$user->ause_authority);
         >
     <div class="row half">
     <?php 
-    $privileges = array('1');
-    $check = !!array_intersect($user_privileges,$privileges);
+    $actived_privileges = array('1');
+    $check = !!array_intersect($user_privileges,$actived_privileges);
     if($check){
     ?>
         <div class="col-xs-5 half">

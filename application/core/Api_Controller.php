@@ -37,13 +37,13 @@ class Api_Controller extends CI_Controller {
             'code' => -1,
         );
         $this->form_validation->set_error_delimiters('', '');
-        $this->_params = $this->input->get();
+        $this->_params = $this->input->post();
         // $this->_searchs = $this->input->get_post('searchs');
-        $this->_page = (int)$this->input->get('page');
-        $this->_perpage = (int) $this->input->get('perpage');
+        $this->_page = (int)$this->input->get_post('page');
+        $this->_perpage = (int) $this->input->get_post('perpage');
         if($this->_perpage <= 0) $this->_perpage = 10;
         if($this->_page <= 0) $this->_page = null; 
-        $this->_id = $this->input->get('id');
+        $this->_id = $this->input->get_post('id');
         $this->_debug = (int)$this->input->get_post('debug');
         $this->_showquery = (int)$this->input->get_post('showquery');
 

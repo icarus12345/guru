@@ -34,7 +34,7 @@ class Trademark extends Api_Controller {
             if($trademark_data) $this->_output['LikeData']['hit'] = count($trademark_data);
         }
         $data = $this->Trademark_Model
-            ->gets();
+            ->get_actived();
         $this->_output['ArrData']['items'] = $data;
         if($data) $this->_output['ArrData']['hit'] = count($data);
         else $this->_output['ArrData']['hit'] = 0;
@@ -45,7 +45,28 @@ class Trademark extends Api_Controller {
         $this->display();
     }
 
-    
+    function wish_list(){
+        if($this->member){
+           
+            // if($shop_data && $trademark_data){
+                $data = $this->Trademark_Model
+                    ->get_by_wish();
+                if($this->_showquery) $this->_output['Queries']['TrademarkByWish'] = $this->db->last_query();
+                $this->_output['ArrData']['items'] = $data;
+                $this->_output['ArrData']['hit'] = count($data);
+            // }
+            $this->_output['ArrData']['items'] = $data;
+            $this->_output['code'] = 1;
+            $this->_output['text'] = 'ok';
+            $this->_output['message'] = 'success';
+        } else {
+            $this->_output['code'] = -1;
+            $this->_output['text'] = 'fail';
+            $this->_output['message'] = 'mising login';
+        }
+        
+        $this->display();
+    }
 
     function wish(){
         $this->form_validation->set_rules($this->rules['wish']);
@@ -100,12 +121,38 @@ class Trademark extends Api_Controller {
         $this->display();
     }
 
-    function get_all(){
+    function filter(){
+        $has_campaign = $this->input->get_post('has_campaign');
+        $q = $this->input->get_post('q');
+        
+        $this->_output['ArrData']['hit'] = 0;
+        if(!empty($q)){
+            $this->Trademark_Model->db->like('__trademark.title',$q);
+        }
+        $this->Trademark_Model->_selectAs[] = 'count(__campaign.trademark_id) as num_campaign';
+        $this->db
+            ->join('__campaign',"__trademark.id = __campaign.trademark_id AND __campaign.start_date < NOW() AND __campaign.end_date > NOW() AND __campaign.status = 'true'",'LEFT');
+        if($has_campaign == 1)
+            $this->db->having('num_campaign > 0');
+        $data = $this->Trademark_Model
+            ->get_actived($this->_page,$this->_perpage);
+        if($this->_showquery) $this->_output['Queries']['FilterTrademark'] = $this->db->last_query();
+        if($data){
+            $query = $this->db->query('SELECT FOUND_ROWS() AS `total_rows`;');
+            $tmp = $query->row_array();
+            $total_rows = (int)$tmp['total_rows'];
+            if($data) $this->_output['ArrData']['hit'] = $total_rows;
+            if($this->_page){
+                $this->_output['ArrData']['page'] = $this->_page;
+                $this->_output['ArrData']['perpage'] = $this->_perpage;
+            }
+        }
+        
+
+        $this->_output['ArrData']['items'] = $data;
         $this->_output['code'] = 1;
         $this->_output['text'] = 'ok';
         $this->_output['message'] = 'success';
-        $this->_output['data'] = $this->API_Model
-            ->gets();
         $this->display();
     }
 }

@@ -11,16 +11,13 @@ class Countries extends Api_Controller {
     );
 
     function index(){
-        parent::run();
-        $this->display();
-    }
-
-    function get_all(){
         $this->_output['code'] = 1;
         $this->_output['text'] = 'ok';
         $this->_output['message'] = 'success';
-        $this->_output['data'] = $this->API_Model
+        $data =  $this->API_Model
             ->gets();
+        $this->_output['ArrData']['hit'] = count($data);
+        $this->_output['ArrData']['items'] = $data;
         $this->display();
     }
 }

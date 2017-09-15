@@ -30,21 +30,21 @@ class Member extends Api_Controller {
                 ),
         ),
         'update' => array(
-                'username' => array(
-                    'field'=>'username',
-                    'label'=>'Username',
-                    'rules'=>'trim|required|min_length[4]|max_length[50]'
-                    ),
-                 'email' => array(
-                    'field'=>'email',
-                    'label'=>'Email',
-                    'rules'=>'trim|valid_email|required',
-                    'errors' => array (
-                        'required' => 'Error Message rule "required" for field email',
-                        'trim' => 'Error message for rule "trim" for field email',
-                        'valid_email' => 'Error message for rule "valid_email" for field email'
-                    )
-                ),
+                // 'username' => array(
+                //     'field'=>'username',
+                //     'label'=>'Username',
+                //     'rules'=>'trim|required|min_length[4]|max_length[50]'
+                //     ),
+                // 'email' => array(
+                //     'field'=>'email',
+                //     'label'=>'Email',
+                //     'rules'=>'trim|valid_email|required',
+                //     'errors' => array (
+                //         'required' => 'Error Message rule "required" for field email',
+                //         'trim' => 'Error message for rule "trim" for field email',
+                //         'valid_email' => 'Error message for rule "valid_email" for field email'
+                //     )
+                // ),
                 'password' => array(
                     'field'=>'password',
                     'label'=>'Password',
@@ -134,10 +134,8 @@ class Member extends Api_Controller {
                 );
             $password = $this->input->post('password');
             if(!empty($password)) $params['password'] = md5($password);
-            $member = $this->API_Model->get_by_username($username);
-            if(!$member) $member = $this->API_Model->get_by_email($email);
-            if($member){
-                $rs = $this->API_Model->_update($member->id,$params);
+            if($this->member){
+                $rs = $this->API_Model->_update($this->member->id,$params);
                 if($rs){
                     $this->_output['code'] = 0;
                     $this->_output['text'] = 'ok';
