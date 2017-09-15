@@ -17,6 +17,15 @@ class Province extends Api_Controller {
         $this->_output['message'] = 'success';
         $data =  $this->API_Model
             ->get_by_country($country_id);
+        if($data){
+            array_unshift($data , (object)array(
+                "id"=> "",
+                "title"=> "Toàn Quốc",
+                "code"=> "",
+                "type"=> "",
+                "country_id"=> ""
+                ));
+        }
         $this->_output['ArrData']['hit'] = count($data);
         $this->_output['ArrData']['items'] = $data;
         $this->display();

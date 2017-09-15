@@ -11,16 +11,23 @@
 class Province_Model extends API_Model {
     function __construct() {
         parent::__construct('__province');
-        $this->_select = array('id','title','code','type','country_id');
+        $this->_select = array(
+            '__province.id','__province.title','__province.code','__province.type','__province.country_id',
+            'sorting'
+            );
     }
     function get_by_name($name){
         return $this
             ->filter(array(
-            "title" => $name
+            "__province.title" => $name
             ))
             ->row();
     }
     function get_by_country($country_id){
+        $this->db
+            ->order_by('__province.type','ASC')
+            ->order_by('__province.sorting','DESC')
+            ->order_by('__province.alias','ASC');
         return $this
             ->filter(array(
             "country_id" => $country_id
